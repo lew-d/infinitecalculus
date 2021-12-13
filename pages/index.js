@@ -1,82 +1,163 @@
 import Head from 'next/head'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from "framer-motion"
+import { derivative, simplify } from 'mathjs'
+import { InlineMath } from 'react-katex'
+import 'katex/dist/katex.min.css';
+
+function ex(chance, base, f) {
+  // 1 in chance chance of f being called
+  if (Math.random() < chance) {
+    return f(base)
+  }
+  return base
+}
+
+function GenerateEquation() {
+  var base = "x"
+
+  base = ex(0.4, base, (e) => e = e.replace("x", "log(x)"))
+
+  base = ex(0.4, base, (e) => e = e.replace("x", "(x-1)"))
+
+  //random int between 2 and 6
+  var num = Math.floor(Math.random() * 6) + 2
+  base = ex(0.8, base, (e) => e += "^" + num)
+
+  base = ex(0.7, base, (e) => e = e.replace("log(x)", "sin(x)"))
+  base = ex(0.7, base, (e) => e = e.replace("sin(x)", "cos(x)"))
+
+  base = ex(0.2, base, (e) => e = e.replace("cos(x)", "tan(x)"))
+
+  num = Math.floor(Math.random() * 6) + 2
+  base = ex(0.3, base, (e) => e += "e^" + num + "x")
+
+  return base
+}
+
+function Question({ onEnd, equation, answer }) {
+  var [hideAnswer, setHideAnswer] = useState(true)
+  var [answerAppeared, setAnswerAppeared] = useState(false)
+
+  var findAnswer = () => {
+    setHideAnswer(false)
+    setTimeout(() => {
+      setAnswerAppeared(true)
+    }, 210)
+  }
+
+  return (
+    <motion.div initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }} className='text-5xl hover:cursor-pointer'>
+      <AnimatePresence>
+        {hideAnswer &&
+          <motion.div initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            onClick={findAnswer}
+            key="question"
+          >
+            <div className="opacity-20 pb-5 text-3xl">
+              Question: (click for next)
+            </div>
+            <InlineMath math={equation} />
+
+          </motion.div>
+        }
+
+        {
+          answerAppeared &&
+          <motion.div initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }} onClick={() => onEnd()}
+            key="Answer"
+          >
+            <div className="opacity-20 pb-5 text-3xl">
+              Answer: (click for next)
+            </div>
+            <InlineMath math={answer} />
+          </motion.div>
+        }
+      </AnimatePresence >
+    </motion.div >
+  )
+}
+
+function Intro({ onEnter }) {
+  //framer motion fade out
+
+  return (
+    <motion.div initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
+      className='relative text-5xl hover:cursor-pointer text-blue-500' onClick={onEnter}>
+      Start Differentiating -->
+    </motion.div>
+  )
+}
+
+function eqSplit(eq) {
+  eq = simplify(eq)
+  var equation = eq.toTex().replace("log", "ln")
+  var answer = derivative(eq, 'x').toTex().replace("log", "ln")
+
+  return { equation, answer }
+}
 
 export default function Home() {
+  var [entered, setEntered] = useState(false)
+  var [questionAppeared, setQuestionAppeared] = useState(false)
+
+  var eq = GenerateEquation()
+  var [equation, setEquation] = useState(eqSplit(GenerateEquation()))
+
+  var enter = () => {
+    setEntered(true)
+    setTimeout(() => {
+      setQuestionAppeared(true)
+    }, 210)
+  }
+
+  var onEnd = () => {
+    setQuestionAppeared(false)
+    setTimeout(() => {
+      var split = eqSplit(GenerateEquation())
+      setEquation(split)
+      setQuestionAppeared(true)
+      setEntered(true)
+    }, 210)
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>calcA2</title>
         <link rel="icon" href="/favicon.ico" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
+          rel="stylesheet"
+        />
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <main>
+        <div className="flex h-screen">
+          <div className="m-auto">
+            <AnimatePresence>
+              {!entered && <Intro key="intro" onEnter={enter} />}
+              {questionAppeared && <Question key="question" onEnd={onEnd} equation={equation.equation} answer={equation.answer} />}
+            </AnimatePresence>
+          </div>
         </div>
       </main>
 
       <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
+        Made By Lewis Because He Ran Out Of Maths Questions
       </footer>
-    </div>
+    </div >
   )
 }
