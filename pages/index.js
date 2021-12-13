@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, onTap } from "framer-motion"
 import { derivative, simplify } from 'mathjs'
 import { InlineMath } from 'react-katex'
 import 'katex/dist/katex.min.css';
@@ -57,7 +57,7 @@ function Question({ onEnd, equation, answer }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            onClick={findAnswer}
+            onTap={findAnswer}
             key="question"
           >
             <div className="opacity-20 pb-5 text-3xl">
@@ -73,7 +73,7 @@ function Question({ onEnd, equation, answer }) {
           <motion.div initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }} onClick={() => onEnd()}
+            transition={{ duration: 0.2 }} onTap={() => onEnd()}
             key="Answer"
           >
             <div className="opacity-20 pb-5 text-3xl">
@@ -95,7 +95,7 @@ function Intro({ onEnter }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
-      className='relative text-5xl hover:cursor-pointer text-blue-500' onClick={onEnter}>
+      className='relative text-5xl hover:cursor-pointer text-blue-500' onTap={onEnter}>
       Start Differentiating -->
     </motion.div>
   )
@@ -124,6 +124,7 @@ export default function Home() {
   }
 
   var onEnd = () => {
+
     setQuestionAppeared(false)
     setTimeout(() => {
       var split = eqSplit(GenerateEquation())
@@ -136,12 +137,11 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>calcA2</title>
+        <title>Infinite Calculus</title>
         <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
-          rel="stylesheet"
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
       </Head>
 
       <main>
