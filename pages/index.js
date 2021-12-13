@@ -30,8 +30,12 @@ function GenerateEquation() {
   base = ex(0.2, base, (e) => e = e.replace("cos(x)", "tan(x)"))
 
   num = Math.floor(Math.random() * 6) + 2
-  base = ex(0.3, base, (e) => e += "e^" + num + "x")
+  base = ex(0.8, base, (e) => e += "e^(" + num + "x)")
 
+  console.log(base)
+  if (base.length < 10) {
+    base = "1/(" + base + ")"
+  }
   return base
 }
 
