@@ -34,7 +34,13 @@ function GenerateEquation() {
 
   console.log(base)
   if (base.length < 10) {
-    base = "1/(" + base + ")"
+    var numer = "1"
+    numer = ex(0.4, numer, (e) => e = e.replace("1", "x"))
+    numer = ex(0.2, numer, (e) => e = e.replace("x", "x^2"))
+    numer = ex(0.2, numer, (e) => e = e.replace("1", "e^x"))
+    numer = ex(0.2, numer, (e) => e = e.replace("1", "cos(x)"))
+    numer = ex(0.2, numer, (e) => e = e.replace("1", "tan(x)"))
+    base = numer + "/(" + base + ")"
   }
   return base
 }
@@ -144,7 +150,7 @@ export default function Home() {
         <title>Infinite Calculus</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
       </Head>
 
