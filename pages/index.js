@@ -18,7 +18,7 @@ function replaceAllInstances(original, word, f) {
 
 function randomA() {
   var bases = [
-    "x", "2x", "x^2"
+    "x", "2x", "x^2", "(1/2)x"
   ]
 
   return `(${bases[Math.floor(Math.random() * bases.length)]})`
@@ -26,7 +26,7 @@ function randomA() {
 
 function randomB() {
   var bases = [
-    "x-1", "x+1", "x^2", "x^2+x", "log(A)", "sin(A)", "cos(A)", "e^x", "e^2x"
+    "x-1", "x+1", "x^2", "x^2+x", "log(A)", "sin(A)", "cos(A)", "e^x", "e^2x", "(1/2)x"
   ]
 
   return `(${bases[Math.floor(Math.random() * bases.length)]})`
