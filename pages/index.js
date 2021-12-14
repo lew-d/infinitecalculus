@@ -108,7 +108,7 @@ function Intro({ onEnter }) {
 function eqSplit(eq) {
   eq = simplify(eq)
   var equation = eq.toTex().replace("log", "ln")
-  var answer = derivative(eq, 'x').toTex().replace("log", "ln")
+  var answer = simplify(derivative(eq, 'x')).toTex().replace("log", "ln")
 
   return { equation, answer }
 }
@@ -144,7 +144,7 @@ export default function Home() {
         <title>Infinite Calculus</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
       </Head>
 
