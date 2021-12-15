@@ -8,6 +8,7 @@
   "dependencies": {
     "framer-motion": "^5.4.5",
     "mathjs": "^10.0.0",
+    "mathjs-simple-integral": "github:JThobbyist/mathjs-simple-integral",
     "next": "latest",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
