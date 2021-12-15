@@ -38,7 +38,9 @@ function generateDifferential() {
     b is complex (2 terms, may have e or log)
   */
   var bases = [
-    "A/B", "B+log(A)", "A/sin(A)", "A*cos(A)", "tan(A)/A", "B/cot(A)", "B*e^A", "e^B+B"
+    "A/B", "A/sin(A)", "tan(A)/A", "B/cot(A)",
+    "B+log(A)", "B+log(A)", "sin(A)+log(A)", "sin(A)^2", "log(A)log(A)",
+    "A*cos(A)", "B*e^A"
   ]
 
   // random base
