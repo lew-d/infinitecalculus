@@ -214,12 +214,13 @@ export default function Home() {
   }
 
   var onDiffEnd = () => {
+    //alert("ended")
     setDiffAppeared(false)
     setTimeout(() => {
       setDiffAppeared(true)
 
       setEntered(true)
-    }, 210)
+    }, 300)
   }
 
   /*
