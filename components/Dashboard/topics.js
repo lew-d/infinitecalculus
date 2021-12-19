@@ -5,7 +5,7 @@ import Trigonometry from "../../lib/generators/trigonometry"
 
 const Topics = [
     { name: 'Differentiation', active: true, generator: Differentiation },
-    { name: 'Integration', active: false, generator: Integration },
+    { name: 'Integration', active: true, generator: Integration },
     { name: 'Logarithms', active: false, generator: Logarithms },
     { name: 'Trigonometry', active: false, generator: Trigonometry },
 ]
