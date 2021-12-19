@@ -4,9 +4,12 @@ import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { RequireAuth } from '../../hooks/authUser'
+import { useUser } from '../../hooks/authUser'
 
 export default function Topic({ onEnd, params }) {
-    RequireAuth()
+    //RequireAuth()
+
+    const { user } = useUser()
 
     var [appeared, setAppeared] = useState(true)
     const { topic } = params
@@ -26,7 +29,7 @@ export default function Topic({ onEnd, params }) {
     return (
         <div className="h-screen cursor-pointer">
             <div className='ml-8 mt-5 xl:ml-32 absolute text-2xl font-medium text-blue-500'>
-                <Link href="/"><span>{"<--"} Dashboard</span></Link>
+                <Link href="/"><span>{"<--"} {user ? <>Dashboard</> : <>Landing</>} </span></Link>
             </div>
             <div className='flex h-4/5'>
                 <div className='m-auto xl:pt-24'>

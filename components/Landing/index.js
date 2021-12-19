@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Heatmap from '../heatmap'
+import TopicGrid from '../Dashboard/topicGrid'
 
 export default function LandingPage() {
 
@@ -20,6 +21,10 @@ export default function LandingPage() {
             </Link>
         </div>
 
+        <div className='px-5 lg:px-16 pb-12'>
+            <TopicGrid />
+        </div>
+
         <div className='bg-gray-50 py-20 px-2 sm:px-6 lg:px-28'>
             <div className='hidden lg:block'>
                 {<>
@@ -34,7 +39,6 @@ export default function LandingPage() {
                     </div>
                 </>}
             </div>
-
             <div className='lg:hidden'>
                 {<>
                     <div className='justify-center lg:flex'>
