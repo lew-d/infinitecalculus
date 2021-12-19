@@ -1,7 +1,7 @@
 import Differentiation from "../../lib/generators/differentiation"
-import Integration from "../../lib/generators/Integration"
-import Logarithms from "../../lib/generators/Logarithms"
-import Trigonometry from "../../lib/generators/Trigonometry"
+import Integration from "../../lib/generators/integration"
+import Logarithms from "../../lib/generators/logarithms"
+import Trigonometry from "../../lib/generators/trigonometry"
 
 const Topics = [
     { name: 'Differentiation', active: true, generator: Differentiation },
