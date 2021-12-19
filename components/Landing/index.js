@@ -23,7 +23,7 @@ export default function LandingPage() {
             </Link>
         </div>
 
-        <div className='px-5 lg:px-16 pb-12'>
+        <div className='px-5 lg:px-32 pb-12'>
             <TopicGrid />
         </div>
         {activity && <div>
