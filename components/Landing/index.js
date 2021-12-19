@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Heatmap from '../heatmap'
 import TopicGrid from '../Dashboard/topicGrid'
 
+const activity = false;
+
 export default function LandingPage() {
 
 
@@ -24,11 +26,9 @@ export default function LandingPage() {
         <div className='px-5 lg:px-16 pb-12'>
             <TopicGrid />
         </div>
-
-        <div className='bg-gray-50 py-20 px-2 sm:px-6 lg:px-28'>
-            <div className='hidden lg:block'>
-                {<>
-
+        {activity && <div>
+            <div className='bg-gray-50 py-20 px-2 sm:px-6 lg:px-28'>
+                <div className='hidden lg:block'>
                     <div className='justify-center lg:flex'>
                         <div className=" lg:w-2/3 xl:w-1/2">
                             <Heatmap />
@@ -37,10 +37,9 @@ export default function LandingPage() {
                             Visualise your revision patterns
                         </div>
                     </div>
-                </>}
-            </div>
-            <div className='lg:hidden'>
-                {<>
+
+                </div>
+                <div className='lg:hidden'>
                     <div className='justify-center lg:flex'>
                         <div className='text-4xl xl:text-5xl ml-10 font-semibold pt-10'>
                             Visualise your revision patterns
@@ -49,8 +48,8 @@ export default function LandingPage() {
                             <Heatmap />
                         </div>
                     </div>
-                </>}
+                </div>
             </div>
-        </div>
+        </div>}
     </div >
 }

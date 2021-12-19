@@ -2,6 +2,8 @@ import { useUser, RequireAuth } from '../../hooks/authUser'
 import Heatmap from '../heatmap'
 import TopicGrid from './topicGrid'
 
+const activity = false;
+
 export default function Dashboard() {
     RequireAuth()
 
@@ -18,15 +20,15 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className='xl:w-2/5 lg:divide-y-0 divide-y-2 divide-dotted'>
-                <div className='py-10'>
+                {activity && <div className='py-10 pb-20'>
                     <span className="text-4xl font-semibold">
                         Activity
                     </span>
                     <div className='pt-5 lg:w-2/5 xl:w-4/5'>
                         <Heatmap />
                     </div>
-                </div>
-                <div className='py-10'>
+                </div>}
+                <div className=''>
                     <span className="text-4xl font-semibold">
                         Account
                     </span>
