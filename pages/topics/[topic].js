@@ -3,8 +3,11 @@ import Topics from '../../components/Dashboard/topics'
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { RequireAuth } from '../../hooks/authUser'
 
 export default function Topic({ onEnd, params }) {
+    RequireAuth()
+
     var [appeared, setAppeared] = useState(true)
     const { topic } = params
 

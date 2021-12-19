@@ -3,6 +3,7 @@ import { UserContextProvider } from '../hooks/authUser'
 import Header from '../components/Header'
 import Head from '../components/Head'
 import Footer from '../components/Footer'
+import NextNProgress from "nextjs-progressbar";
 
 import 'react-calendar-heatmap/dist/styles.css';
 import 'tailwindcss/tailwind.css'
@@ -14,6 +15,7 @@ export default function MyApp({ Component, pageProps }) {
     <main>
       <UserContextProvider>
         <div className='min-h-screen bg-stone-50'>
+          <NextNProgress />
           <Head />
           <Header />
 
